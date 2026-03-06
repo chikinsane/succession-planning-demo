@@ -804,7 +804,7 @@ if __name__ == "__main__":
     org_structure = generate_org_structure(employees)
     print(f"  Org structure entries: {len(org_structure)}")
 
-    filepath = "/Users/abhishek/Claude Code/succession-planning-tool/TalentForge_TestData_500.xlsx"
+    filepath = "TalentForge_TestData_500.xlsx"
     write_excel(employees, roles, succession, org_structure, filepath)
 
     # Print summary stats
