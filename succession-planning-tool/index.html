@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#6366f1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>TalentForge - Succession Planning Platform</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+  <!-- Mobile Nav Overlay -->
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 32 32" fill="none"><path d="M16 2L4 8v16l12 6 12-6V8L16 2z" fill="url(#g1)" opacity="0.2"/><path d="M16 2L4 8v16l12 6 12-6V8L16 2z" stroke="url(#g1)" stroke-width="1.5" fill="none"/><path d="M16 8l-6 3v10l6 3 6-3V11l-6-3z" fill="url(#g1)" opacity="0.5"/><path d="M16 14v10M10 11l6 3 6-3" stroke="#fff" stroke-width="1.2" opacity="0.8"/><defs><linearGradient id="g1" x1="4" y1="2" x2="28" y2="30"><stop stop-color="#818cf8"/><stop offset="1" stop-color="#6366f1"/></linearGradient></defs></svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-name">TalentForge</span>
+          <span class="logo-sub">Succession Platform</span>
+        </div>
+      </div>
+      <button class="sidebar-close" id="sidebarClose">&times;</button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-section-title">Overview</div>
+        <a href="#" class="nav-item active" data-page="dashboard">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          <span>Dashboard</span>
+        </a>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">Talent Assessment</div>
+        <a href="#" class="nav-item" data-page="ninebox">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>
+          <span>9-Box Grid</span>
+        </a>
+        <a href="#" class="nav-item" data-page="flightrisk">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span>Flight Risk</span>
+          <span class="nav-badge danger">AI</span>
+        </a>
+        <a href="#" class="nav-item" data-page="potential">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <span>Potential Assessment</span>
+          <span class="nav-badge info">AI</span>
+        </a>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">Pipeline Management</div>
+        <a href="#" class="nav-item" data-page="pipeline">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <span>Succession Pipeline</span>
+        </a>
+        <a href="#" class="nav-item" data-page="benchdepth">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          <span>Bench Depth</span>
+        </a>
+        <a href="#" class="nav-item" data-page="matching">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <span>Successor Matching</span>
+          <span class="nav-badge info">AI</span>
+        </a>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">Development</div>
+        <a href="#" class="nav-item" data-page="development">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+          <span>Development Plans</span>
+          <span class="nav-badge info">AI</span>
+        </a>
+        <a href="#" class="nav-item" data-page="readiness">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Readiness Timeline</span>
+        </a>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">Analytics & Governance</div>
+        <a href="#" class="nav-item" data-page="analytics">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span>Analytics & DEI</span>
+        </a>
+        <a href="#" class="nav-item" data-page="manufacturing">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20h20M5 20V10l4-6h6l4 6v10M9 20v-4h6v4M9 10h6"/></svg>
+          <span>Manufacturing</span>
+        </a>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">Administration</div>
+        <a href="#" class="nav-item" data-page="admin">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.32 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+          <span>Admin Console</span>
+        </a>
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="user-avatar">A</div>
+        <div class="user-details">
+          <span class="user-name">Admin User</span>
+          <span class="user-role">CHRO</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content" id="mainContent">
+    <!-- Top Bar -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="hamburger" id="hamburger">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="breadcrumb" id="breadcrumb">
+          <span class="breadcrumb-page">Dashboard</span>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="search-box">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" placeholder="Search employees, roles..." id="globalSearch">
+        </div>
+        <button class="topbar-btn notification-btn" id="notifBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+          <span class="notification-dot"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Page Container -->
+    <div class="page-container" id="pageContainer">
+
+      <!-- ===================== DASHBOARD ===================== -->
+      <section class="page active" id="page-dashboard">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Succession Health Dashboard</h1>
+            <p class="page-subtitle">Real-time succession coverage and talent pipeline overview</p>
+          </div>
+          <div class="page-actions">
+            <select class="filter-select" id="dashBuFilter">
+              <option value="all">All Business Units</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-icon kpi-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+            <div class="kpi-body">
+              <span class="kpi-label">Critical Role Coverage</span>
+              <span class="kpi-value" id="kpiCoverage">--</span>
+              <span class="kpi-trend up"><svg viewBox="0 0 12 12" fill="currentColor"><path d="M6 2l4 5H2z"/></svg> vs last quarter</span>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon kpi-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+            <div class="kpi-body">
+              <span class="kpi-label">Ready Now Successors</span>
+              <span class="kpi-value" id="kpiReadyNow">--</span>
+              <span class="kpi-trend up">across critical roles</span>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon kpi-amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+            <div class="kpi-body">
+              <span class="kpi-label">High Flight Risk</span>
+              <span class="kpi-value" id="kpiFlightRisk">--</span>
+              <span class="kpi-trend down">need retention action</span>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon kpi-purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+            <div class="kpi-body">
+              <span class="kpi-label">Avg Bench Depth</span>
+              <span class="kpi-value" id="kpiBenchDepth">--</span>
+              <span class="kpi-trend neutral">successors per role</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="charts-grid">
+          <div class="chart-card">
+            <div class="chart-header">
+              <h3>Succession Coverage by Tier</h3>
+              <span class="chart-badge">Live</span>
+            </div>
+            <div class="chart-body"><canvas id="chartCoverage"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-header">
+              <h3>Readiness Distribution</h3>
+            </div>
+            <div class="chart-body"><canvas id="chartReadiness"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-header">
+              <h3>Flight Risk Heatmap</h3>
+              <span class="chart-badge danger">Alert</span>
+            </div>
+            <div class="chart-body"><canvas id="chartFlightRisk"></canvas></div>
+          </div>
+        </div>
+
+        <!-- Risk Table -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Critical Succession Gaps</h3>
+            <span class="card-subtitle">Roles with insufficient successor bench</span>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table" id="gapsTable">
+              <thead>
+                <tr>
+                  <th>Role</th><th>Tier</th><th>Department</th><th>Plant</th>
+                  <th>Ready Now</th><th>1-2 Yrs</th><th>3+ Yrs</th><th>Risk Level</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== 9-BOX GRID ===================== -->
+      <section class="page" id="page-ninebox">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">9-Box Talent Grid</h1>
+            <p class="page-subtitle">Performance vs Potential matrix with drag-and-drop calibration</p>
+          </div>
+          <div class="page-actions">
+            <select class="filter-select" id="nineboxDeptFilter"><option value="all">All Departments</option></select>
+            <select class="filter-select" id="nineboxPlantFilter"><option value="all">All Plants</option></select>
+          </div>
+        </div>
+        <div class="ninebox-container">
+          <div class="ninebox-y-label">
+            <span>Potential</span>
+            <div class="axis-labels"><span>High</span><span>Medium</span><span>Low</span></div>
+          </div>
+          <div class="ninebox-grid" id="nineboxGrid">
+            <div class="ninebox-cell star" data-box="high-high" data-perf="high" data-pot="high"><div class="cell-label">Stars</div><div class="cell-count">0</div><div class="cell-employees"></div></div>
+            <div class="ninebox-cell growth" data-box="med-high" data-perf="medium" data-pot="high"><div class="cell-label">High Potential</div><div class="cell-count">0</div><div class="cell-employees"></div></div>
+            <div class="ninebox-cell enigma" data-box="low-high" data-perf="low" data-pot="high"><div class="cell-label">Enigma</div><div class="cell-count">0</div><div class="cell-employees"></div></div>
+            <div class="ninebox-cell strong" data-box="high-med" data-perf="high" data-pot="medium"><div class="cell-label">Strong Performer</div><div class="cell-count">0</div><div class="cell-employees"></div></div>
+            <div class="ninebox-cell core" data-box="med-med" data-perf="medium" data-pot="medium"><div class="cell-label">Core Player</div><div class="cell-count">0</div><div class="cell-employees"></div></div>
+            <div class="ninebox-cell dilemma" data-box="low-med" data-perf="low" data-pot="medium"><div class="cell-label">Dilemma</div><div class="cell-count">0</div><div class="cell-employees"></div></div>
+            <div class="ninebox-cell trusted" data-box="high-low" data-perf="high" data-pot="low"><div class="cell-label">Trusted Professional</div><div class="cell-count">0</div><div class="cell-employees"></div></div>
+            <div class="ninebox-cell effective" data-box="med-low" data-perf="medium" data-pot="low"><div class="cell-label">Effective</div><div class="cell-count">0</div><div class="cell-employees"></div></div>
+            <div class="ninebox-cell risk" data-box="low-low" data-perf="low" data-pot="low"><div class="cell-label">Underperformer</div><div class="cell-count">0</div><div class="cell-employees"></div></div>
+          </div>
+          <div class="ninebox-x-label">
+            <span>Performance</span>
+            <div class="axis-labels"><span>High</span><span>Medium</span><span>Low</span></div>
+          </div>
+        </div>
+        <div class="card mt-24">
+          <div class="card-header"><h3>Talent Grid Summary</h3></div>
+          <div class="ninebox-summary" id="nineboxSummary"></div>
+        </div>
+      </section>
+
+      <!-- ===================== FLIGHT RISK ===================== -->
+      <section class="page" id="page-flightrisk">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Flight Risk Analysis</h1>
+            <p class="page-subtitle">AI-predicted attrition probability for succession candidates</p>
+          </div>
+        </div>
+        <div class="risk-horizon-tabs">
+          <button class="horizon-tab active" data-horizon="30">30-Day</button>
+          <button class="horizon-tab" data-horizon="60">60-Day</button>
+          <button class="horizon-tab" data-horizon="90">90-Day</button>
+        </div>
+        <div class="charts-grid cols-2">
+          <div class="chart-card"><div class="chart-header"><h3>Flight Risk Distribution</h3></div><div class="chart-body"><canvas id="chartFlightDist"></canvas></div></div>
+          <div class="chart-card"><div class="chart-header"><h3>Risk by Department</h3></div><div class="chart-body"><canvas id="chartFlightDept"></canvas></div></div>
+        </div>
+        <div class="card mt-24">
+          <div class="card-header"><h3>High Flight Risk Employees</h3><span class="card-subtitle">Score &ge; 0.7 — Immediate retention action recommended</span></div>
+          <div class="table-wrap">
+            <table class="data-table" id="flightRiskTable">
+              <thead><tr><th>Employee</th><th>Role</th><th>Department</th><th>Flight Score</th><th>Key Factors</th><th>Action</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== POTENTIAL ASSESSMENT ===================== -->
+      <section class="page" id="page-potential">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Potential Assessment Engine</h1>
+            <p class="page-subtitle">Multi-dimensional potential scoring with debiased AI algorithms</p>
+          </div>
+        </div>
+        <div class="charts-grid cols-2">
+          <div class="chart-card"><div class="chart-header"><h3>Potential Score Distribution</h3></div><div class="chart-body"><canvas id="chartPotentialDist"></canvas></div></div>
+          <div class="chart-card"><div class="chart-header"><h3>Potential Dimensions Radar</h3></div><div class="chart-body"><canvas id="chartPotentialRadar"></canvas></div></div>
+        </div>
+        <div class="card mt-24">
+          <div class="card-header"><h3>Employee Potential Assessments</h3></div>
+          <div class="table-wrap">
+            <table class="data-table" id="potentialTable">
+              <thead><tr><th>Employee</th><th>Learning Agility</th><th>Strategic Thinking</th><th>People Leadership</th><th>Overall Potential</th><th>Competency Fit</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== SUCCESSION PIPELINE ===================== -->
+      <section class="page" id="page-pipeline">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Succession Pipeline</h1>
+            <p class="page-subtitle">Role criticality mapping and succession chain visualization</p>
+          </div>
+        </div>
+        <div class="pipeline-filters">
+          <select class="filter-select" id="pipelineTierFilter"><option value="all">All Tiers</option><option value="1">Tier 1 - Critical</option><option value="2">Tier 2 - Important</option><option value="3">Tier 3 - Standard</option></select>
+          <select class="filter-select" id="pipelineDeptFilter"><option value="all">All Departments</option></select>
+        </div>
+        <div id="pipelineView" class="pipeline-view"></div>
+      </section>
+
+      <!-- ===================== BENCH DEPTH ===================== -->
+      <section class="page" id="page-benchdepth">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Bench Depth View</h1>
+            <p class="page-subtitle">Successor availability by role — Ready Now / 1-2 Years / 3+ Years</p>
+          </div>
+        </div>
+        <div class="charts-grid cols-2">
+          <div class="chart-card"><div class="chart-header"><h3>Bench Strength Overview</h3></div><div class="chart-body"><canvas id="chartBenchOverview"></canvas></div></div>
+          <div class="chart-card"><div class="chart-header"><h3>Coverage by Business Unit</h3></div><div class="chart-body"><canvas id="chartBenchBU"></canvas></div></div>
+        </div>
+        <div class="card mt-24">
+          <div class="card-header"><h3>Bench Depth by Role</h3></div>
+          <div class="table-wrap">
+            <table class="data-table" id="benchTable">
+              <thead><tr><th>Critical Role</th><th>Incumbent</th><th>Tier</th><th>Ready Now</th><th>1-2 Years</th><th>3+ Years</th><th>Health</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== SUCCESSOR MATCHING ===================== -->
+      <section class="page" id="page-matching">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">AI Successor Matching</h1>
+            <p class="page-subtitle">AI-powered candidate recommendation with explainable match scoring</p>
+          </div>
+        </div>
+        <div class="matching-controls">
+          <div class="match-select-group">
+            <label>Select Target Role</label>
+            <select class="filter-select" id="matchRoleSelect"><option value="">Choose a role...</option></select>
+          </div>
+          <button class="btn btn-primary" id="runMatchingBtn">Run AI Matching</button>
+        </div>
+        <div id="matchingResults" class="matching-results"></div>
+      </section>
+
+      <!-- ===================== DEVELOPMENT PLANS ===================== -->
+      <section class="page" id="page-development">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Development Planning</h1>
+            <p class="page-subtitle">AI-generated Individual Development Plans and readiness tracking</p>
+          </div>
+        </div>
+        <div class="dev-controls">
+          <select class="filter-select" id="devEmployeeSelect"><option value="">Select Employee...</option></select>
+          <button class="btn btn-primary" id="generateIDPBtn">Generate IDP</button>
+        </div>
+        <div id="idpView" class="idp-view"></div>
+      </section>
+
+      <!-- ===================== READINESS TIMELINE ===================== -->
+      <section class="page" id="page-readiness">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Readiness Timeline</h1>
+            <p class="page-subtitle">Successor development milestones with checkpoint-based progression</p>
+          </div>
+        </div>
+        <div class="charts-grid cols-1">
+          <div class="chart-card"><div class="chart-header"><h3>Readiness Progression</h3></div><div class="chart-body chart-tall"><canvas id="chartReadinessTimeline"></canvas></div></div>
+        </div>
+        <div class="card mt-24">
+          <div class="card-header"><h3>Readiness Milestones by Successor</h3></div>
+          <div class="table-wrap">
+            <table class="data-table" id="readinessTable">
+              <thead><tr><th>Successor</th><th>Target Role</th><th>Current Level</th><th>Milestones Done</th><th>Target Date</th><th>Status</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== ANALYTICS & DEI ===================== -->
+      <section class="page" id="page-analytics">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Analytics, DEI & Governance</h1>
+            <p class="page-subtitle">Diversity analytics, bias detection, and succession governance</p>
+          </div>
+        </div>
+        <div class="charts-grid">
+          <div class="chart-card"><div class="chart-header"><h3>Gender Representation in Pipeline</h3></div><div class="chart-body"><canvas id="chartDEIGender"></canvas></div></div>
+          <div class="chart-card"><div class="chart-header"><h3>Age Distribution</h3></div><div class="chart-body"><canvas id="chartDEIAge"></canvas></div></div>
+          <div class="chart-card"><div class="chart-header"><h3>Diversity by Tier</h3></div><div class="chart-body"><canvas id="chartDEITier"></canvas></div></div>
+        </div>
+        <div class="card mt-24">
+          <div class="card-header"><h3>Bias Detection Alerts</h3><span class="card-subtitle">AI-flagged disproportionate exclusion patterns</span></div>
+          <div id="biasAlerts" class="bias-alerts"></div>
+        </div>
+        <div class="card mt-24">
+          <div class="card-header"><h3>Audit Trail</h3><span class="card-subtitle">Complete log of succession decisions</span></div>
+          <div class="table-wrap">
+            <table class="data-table" id="auditTable">
+              <thead><tr><th>Date</th><th>Action</th><th>By</th><th>Details</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== MANUFACTURING ===================== -->
+      <section class="page" id="page-manufacturing">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Manufacturing-Specific</h1>
+            <p class="page-subtitle">Plant-level views, safety certs, knowledge transfer, shopfloor pipeline</p>
+          </div>
+        </div>
+        <div class="mfg-tabs">
+          <button class="mfg-tab active" data-tab="plantview">Plant View</button>
+          <button class="mfg-tab" data-tab="safety">Safety Certs</button>
+          <button class="mfg-tab" data-tab="knowledge">Knowledge Transfer</button>
+          <button class="mfg-tab" data-tab="shopfloor">Shopfloor Pipeline</button>
+          <button class="mfg-tab" data-tab="continuity">Production Continuity</button>
+        </div>
+        <div id="mfgContent" class="mfg-content"></div>
+      </section>
+
+      <!-- ===================== ADMIN CONSOLE ===================== -->
+      <section class="page" id="page-admin">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Admin Console</h1>
+            <p class="page-subtitle">Upload employee data, manage configurations, and system settings</p>
+          </div>
+        </div>
+
+        <div class="admin-grid">
+          <!-- Upload Section -->
+          <div class="card admin-upload-card">
+            <div class="card-header">
+              <h3>Data Upload</h3>
+              <span class="card-subtitle">Import employee data via Excel</span>
+            </div>
+            <div class="upload-zone" id="uploadZone">
+              <div class="upload-icon">
+                <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M28 4H12a4 4 0 00-4 4v32a4 4 0 004 4h24a4 4 0 004-4V16L28 4z"/><polyline points="28 4 28 16 40 16"/><line x1="24" y1="26" x2="24" y2="38"/><polyline points="18 32 24 26 30 32"/></svg>
+              </div>
+              <p class="upload-text">Drag & drop your Excel file here</p>
+              <p class="upload-sub">or click to browse. Supports .xlsx and .xls</p>
+              <input type="file" id="fileInput" accept=".xlsx,.xls" hidden>
+            </div>
+            <div class="upload-progress" id="uploadProgress" style="display:none">
+              <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+              <span class="progress-text" id="progressText">Processing...</span>
+            </div>
+            <div class="upload-result" id="uploadResult" style="display:none"></div>
+          </div>
+
+          <!-- Template Download -->
+          <div class="card">
+            <div class="card-header">
+              <h3>Excel Template</h3>
+              <span class="card-subtitle">Download the required format</span>
+            </div>
+            <div class="template-info">
+              <p>The template includes all required sheets:</p>
+              <ul class="template-sheets">
+                <li><strong>Employees</strong> — Profile, demographics, job history</li>
+                <li><strong>Performance</strong> — Annual ratings (3+ years)</li>
+                <li><strong>Skills</strong> — Competencies, certifications</li>
+                <li><strong>Succession</strong> — Role mapping, readiness levels</li>
+                <li><strong>Org Structure</strong> — Departments, plants, hierarchy</li>
+                <li><strong>Roles</strong> — Critical roles, competency profiles</li>
+              </ul>
+              <button class="btn btn-secondary" id="downloadTemplateBtn">Download Template (.xlsx)</button>
+            </div>
+          </div>
+
+          <!-- Data Status -->
+          <div class="card">
+            <div class="card-header">
+              <h3>Data Health</h3>
+              <span class="card-subtitle">Current data status</span>
+            </div>
+            <div class="data-health" id="dataHealth">
+              <div class="health-item"><span class="health-dot red"></span><span>No data loaded</span></div>
+            </div>
+          </div>
+
+          <!-- Employee Table -->
+          <div class="card admin-table-card">
+            <div class="card-header">
+              <h3>Employee Registry</h3>
+              <span class="card-subtitle" id="empCount">0 employees loaded</span>
+            </div>
+            <div class="table-wrap">
+              <table class="data-table" id="employeeTable">
+                <thead><tr><th>ID</th><th>Name</th><th>Department</th><th>Role</th><th>Plant</th><th>Grade</th><th>Perf</th><th>Potential</th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Demo Data -->
+          <div class="card">
+            <div class="card-header">
+              <h3>Demo Mode</h3>
+              <span class="card-subtitle">Load sample data for demonstration</span>
+            </div>
+            <p class="demo-desc">Generate realistic sample data with 150+ employees across multiple plants, departments, and roles to explore all platform features.</p>
+            <button class="btn btn-accent" id="loadDemoBtn">Load Demo Data</button>
+            <button class="btn btn-danger mt-12" id="clearDataBtn">Clear All Data</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Employee Detail Modal -->
+  <div class="modal-overlay" id="employeeModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modalTitle">Employee Details</h2>
+        <button class="modal-close" id="modalClose">&times;</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- Notification Panel -->
+  <div class="notification-panel" id="notifPanel">
+    <div class="notif-header"><h3>Notifications</h3><button class="notif-close" id="notifClose">&times;</button></div>
+    <div class="notif-list" id="notifList"></div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/ninebox.js"></script>
+  <script src="js/pipeline.js"></script>
+  <script src="js/development.js"></script>
+  <script src="js/analytics.js"></script>
+  <script src="js/manufacturing.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
